@@ -185,6 +185,10 @@ async def ping(cxt):
     await cxt.send(embed=steat)
 
 @earthchan.command()
+async def invite(cxt):
+    await cxt.author.send(f'{cxt.author.mention} **Here is the link for the EarthChan Testing server!** https://discord.gg/dAm265y')
+
+@earthchan.command()
 async def help(cxt):
     help = discord.Embed(
         title = ':arrow_forward: **Commands**',
@@ -206,6 +210,7 @@ async def help(cxt):
     help.add_field(name=':white_small_square: nick', value='(Requires manage nicknames permission) Changes your nickname or other peoples nicknames. Usage: ;nick <member> <nickname>')
     help.add_field(name=':white_small_square: nuke', value='(12 hour limit) Spam a user with direct messages. Usage: ;nuke <member> <message>')
     help.add_field(name=':white_small_square: ping', value='Shows the latency for the bot to respond. Usage: ;ping')
+    help.add_field(name=':white_small_square: invite', value='Join our official testing server! Usage: ;invite')
     help.add_field(name=':white_small_square: help', value='shows this embed. Usage: ;help')
 
     await cxt.send(embed=help)
