@@ -111,7 +111,7 @@ async def nick(cxt, member : discord.Member, nick=None):
 @earthchan.command(aliases = ['spamdm'])
 @commands.cooldown(1, 43200, commands.BucketType.user)
 @commands.has_permissions(view_audit_log=True)
-async def nuke(cxt, member : discord.Member, message='THIS IS NOT A DRILL. TACTICAL NUKE INCOMING'):
+async def nuke(cxt, member : discord.Member, message='nuke\'d'):
     tactical = await member.create_dm()
     await tactical.send(message)
     await tactical.send(message)
