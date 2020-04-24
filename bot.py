@@ -47,6 +47,7 @@ async def clear(cxt, amount=5):
 async def dm(cxt):
     await cxt.author.send('Sup. I slid into your DMs.')
 
+
 @earthchan.command()
 @commands.has_permissions(kick_members=True)
 async def kick(cxt, member : discord.Member, *, reason=None):
@@ -109,9 +110,9 @@ async def nick(cxt, member : discord.Member, nick=None):
     await cxt.send(f':white_check_mark: **Ok, {member} now has the nickname {nick}!** :pencil2:')
 
 @earthchan.command(aliases = ['spamdm'])
-@commands.cooldown(1, 43200, commands.BucketType.user)
+@commands.cooldown(1, 7200, commands.BucketType.user)
 @commands.has_permissions(view_audit_log=True)
-async def nuke(cxt, member : discord.Member, message='THIS IS NOT A DRILL. TACTICAL NUKE INCOMING'):
+async def nuke(cxt, member : discord.Member, message='nuke\'d'):
     tactical = await member.create_dm()
     await tactical.send(message)
     await tactical.send(message)
@@ -166,6 +167,22 @@ async def nuke(cxt, member : discord.Member, message='THIS IS NOT A DRILL. TACTI
 
 
     await cxt.send('Now wait **12 Hours** before using this command again!')
+@nuke.error
+async def nuke_error(cxt, error):   
+    if isinstance(error, commands.CommandOnCooldown):
+        msg = 'Hey, you can use this command again in **{:.2f}s**'.format(error.retry_after)
+        await cxt.send(msg)
+    else:
+        raise error
+
+@earthchan.command(aliases = ['stats'])
+async def ping(cxt):
+    steat = discord.Embed(
+        title = ':ping_pong: **Pong!**',
+        description = f'{round(earthchan.latency*1000)}ms',
+        colour = discord.Colour.purple()
+    )
+    await cxt.send(embed=steat)
 
 @earthchan.command()
 async def help(cxt):
@@ -188,6 +205,7 @@ async def help(cxt):
     help.add_field(name=':white_small_square: compliment', value='Show how much you appreciate someone by giving them a nice compliment. Usage: ;compliment <member>')
     help.add_field(name=':white_small_square: nick', value='(Requires manage nicknames permission) Changes your nickname or other peoples nicknames. Usage: ;nick <member> <nickname>')
     help.add_field(name=':white_small_square: nuke', value='(12 hour limit) Spam a user with direct messages. Usage: ;nuke <member> <message>')
+    help.add_field(name=':white_small_square: ping', value='Shows the latency for the bot to respond. Usage: ;ping')
     help.add_field(name=':white_small_square: help', value='shows this embed. Usage: ;help')
 
     await cxt.send(embed=help)
