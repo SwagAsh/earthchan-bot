@@ -10,7 +10,7 @@ earthchan.remove_command('help')
 
 @earthchan.event
 async def on_ready():
-    await earthchan.change_presence(status=discord.Status.online, activity=discord.Streaming(name='senpai has a long hard thingy 😮', url='https://www.youtube.com/watch?v=VFuBTK2wAHU'))
+    await earthchan.change_presence(status=discord.Status.online, activity=discord.Streaming(name='welcome people!', url='https://www.youtube.com/watch?v=VFuBTK2wAHU'))
     print('Hello senpai, i am wide awake!')
 
 @earthchan.event
@@ -113,6 +113,9 @@ async def nick(cxt, member : discord.Member, nick=None):
 @commands.cooldown(1, 7200, commands.BucketType.user)
 @commands.has_permissions(view_audit_log=True)
 async def nuke(cxt, member : discord.Member, message='nuke\'d'):
+
+    await cxt.send(f':boom: Okay, nuking {member} now... :boom:')
+    
     tactical = await member.create_dm()
     await tactical.send(message)
     await tactical.send(message)
@@ -165,12 +168,11 @@ async def nuke(cxt, member : discord.Member, message='nuke\'d'):
     await tactical.send(message)
     await tactical.send(message)
 
-
-    await cxt.send('Now wait **12 Hours** before using this command again!')
+    await cxt.send(':raised_hand: Now wait **2 Hours** before using this command again! :alarm_clock:')
 @nuke.error
 async def nuke_error(cxt, error):   
     if isinstance(error, commands.CommandOnCooldown):
-        msg = 'Hey, you can use this command again in **{:.2f}s**'.format(error.retry_after)
+        msg = ':octagonal_sign: Hey, you can use this command again in **{:.0f}s**'.format(error.retry_after)
         await cxt.send(msg)
     else:
         raise error
@@ -208,7 +210,7 @@ async def help(cxt):
     help.add_field(name=':white_small_square: ask', value='Ask a question to get a random answer (like 8ball). Usage: ;ask <question>')
     help.add_field(name=':white_small_square: compliment', value='Show how much you appreciate someone by giving them a nice compliment. Usage: ;compliment <member>')
     help.add_field(name=':white_small_square: nick', value='(Requires manage nicknames permission) Changes your nickname or other peoples nicknames. Usage: ;nick <member> <nickname>')
-    help.add_field(name=':white_small_square: nuke', value='(12 hour limit) Spam a user with direct messages. Usage: ;nuke <member> <message>')
+    help.add_field(name=':white_small_square: nuke', value='(2 hour limit) Spam a user with direct messages. Usage: ;nuke <member> <message>')
     help.add_field(name=':white_small_square: ping', value='Shows the latency for the bot to respond. Usage: ;ping')
     help.add_field(name=':white_small_square: invite', value='Join our official testing server! Usage: ;invite')
     help.add_field(name=':white_small_square: help', value='shows this embed. Usage: ;help')
