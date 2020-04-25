@@ -12,19 +12,14 @@ earthchan.remove_command('help')
 @earthchan.event
 async def on_ready():
     await earthchan.change_presence(status=discord.Status.online, activity=discord.Streaming(name='welcome people!', url='https://www.youtube.com/watch?v=VFuBTK2wAHU'))
-    print('Hello senpai, i am wide awake!')
 
 @earthchan.event
 async def on_guild_join(guild):
-    channel = earthchan.get_channel(702629328596238440)
+    channel = earthchan.get_channel(678308902038667318)
     embed=discord.Embed(title="Hello guys! EarthChan here.", description="I am a multipurpose bot who is still a work in progress, but i can still do a lot of things! try using the ;help command to see what i can do! Some fun facts about me: I was programmed in python entirely by SwagAsh#3759. Pretty cool right?", colour = discord.Colour.blurple())
     embed.set_author(name="EarthChan")
     embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/695628979071352872/702575494679363604/2Q.png")
     await channel.send(embed=embed)
-
-@earthchan.event
-async def on_message_delete(message):
-    print(f'Message deleted: {message}')
 
 @earthchan.command()
 async def load(cxt, extension):
@@ -38,28 +33,10 @@ for filename in os.listdir('./categories'):
     if filename.endswith('.py'):
         earthchan.load_extension(f'categories.{filename[:-3]}')
 
-@earthchan.command()
-async def hello(cxt):
-    hello = [
-        'Hello',
-        'Hi',
-        'Kon\'nichiwa',
-        'Hola',
-        'Bonjour',
-        'Guten Tag',
-        'Zdravstvuyte'
-    ]
-    await cxt.send(':wave: **' + random.choice(hello) + f', {cxt.author.mention}!**')
-
 @earthchan.command(aliases = ['erase'])
 async def clear(cxt, amount=5):
     await cxt.channel.purge(limit=amount)
     await cxt.send(f':wastebasket: **Removed {amount} messages!** :thumbsup:')
-
-@earthchan.command()
-async def dm(cxt):
-    await cxt.author.send('Sup. I slid into your DMs.')
-
 
 @earthchan.command()
 @commands.has_permissions(kick_members=True)
@@ -121,74 +98,6 @@ async def compliment(cxt, member : discord.Member):
 async def nick(cxt, member : discord.Member, nick=None):
     await member.edit(nick=nick)
     await cxt.send(f':white_check_mark: **Ok, {member} now has the nickname {nick}!** :pencil2:')
-
-@earthchan.command(aliases = ['spamdm'])
-@commands.cooldown(1, 7200, commands.BucketType.user)
-@commands.has_permissions(view_audit_log=True)
-async def nuke(cxt, member : discord.Member, message='nuke\'d'):
-
-    await cxt.send(f':boom: Okay, nuking {member} now... :boom:')
-    
-    tactical = await member.create_dm()
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-    await tactical.send(message)
-
-    await cxt.send(':raised_hand: Now wait **2 Hours** before using this command again! :alarm_clock:')
-@nuke.error
-async def nuke_error(cxt, error):   
-    if isinstance(error, commands.CommandOnCooldown):
-        msg = ':octagonal_sign: Hey, you can use this command again in **{:.0f}s**'.format(error.retry_after)
-        await cxt.send(msg)
-    else:
-        raise error
 
 @earthchan.command(aliases = ['stats'])
 async def ping(cxt):
