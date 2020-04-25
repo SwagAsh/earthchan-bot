@@ -87,7 +87,7 @@ async def invite(cxt):
 async def help(cxt):
     help = discord.Embed(
         title = ':arrow_forward: **Commands**',
-        description = '(WIP) _Categories: Miscellaneous, None._ A list of commands (So Far) for the EarthChan bot.',
+        description = '(WIP) _Categories: Miscellaneous, Moderation,None._ A list of commands (So Far) for the EarthChan bot.',
         colour = discord.Colour.dark_green()
     )    
     help.set_footer(text='Join the EarthChan Beta Testers discord server by sending a dm to SwagAsh#3759')
