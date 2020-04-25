@@ -33,35 +33,6 @@ for filename in os.listdir('./categories'):
     if filename.endswith('.py'):
         earthchan.load_extension(f'categories.{filename[:-3]}')
 
-@earthchan.command(aliases = ['erase'])
-async def clear(cxt, amount=5):
-    await cxt.channel.purge(limit=amount)
-    await cxt.send(f':wastebasket: **Removed {amount} messages!** :thumbsup:')
-
-@earthchan.command()
-@commands.has_permissions(kick_members=True)
-async def kick(cxt, member : discord.Member, *, reason=None):
-    await member.kick(reason=reason)
-    await cxt.send(f'Okay. {member} has been kicked from the server.')
-
-@earthchan.command(aliases = ['foreverkick'])
-@commands.has_permissions(ban_members=True)
-async def ban(cxt, member : discord.Member, *, reason=None):
-    await member.ban(reason=reason)
-    await cxt.send(f'{member} has been banned from the server. Bye Bye!')
-
-@earthchan.command(aliases = ['unforeverkick'])
-@commands.has_permissions(ban_members=True)
-async def unban(cxt, *, member):
-    banned_users = await cxt.guild.bans()
-    member_name, member_discriminator = member.split('#')
-    for ban_entry in banned_users:
-        user = ban_entry.user
-        if(user.name, user.discriminator) == (member_name, member_discriminator):
-            await cxt.guild.unban(user)
-            await cxt.send(f'Ok! {user} can now rejoin the server!')
-            return
-
 @earthchan.command(aliases = ['askme', 'question'])
 async def ask(cxt, question):
     response = [
@@ -116,7 +87,7 @@ async def invite(cxt):
 async def help(cxt):
     help = discord.Embed(
         title = ':arrow_forward: **Commands**',
-        description = '(WIP) _No Categories_ A list of commands (So Far) for the EarthChan bot.',
+        description = '(WIP) _Categories: Miscellaneous, None._ A list of commands (So Far) for the EarthChan bot.',
         colour = discord.Colour.dark_green()
     )    
     help.set_footer(text='Join the EarthChan Beta Testers discord server by sending a dm to SwagAsh#3759')
