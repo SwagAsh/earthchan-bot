@@ -1,5 +1,6 @@
 import discord
 import random
+import os
 from discord.ext import commands
 
 earthchan = commands.Bot(command_prefix = ';')
@@ -24,6 +25,18 @@ async def on_guild_join(guild):
 @earthchan.event
 async def on_message_delete(message):
     print(f'Message deleted: {message}')
+
+@earthchan.command()
+async def load(cxt, extension):
+    earthchan.load_extension(f'categories.{extension}')
+
+@earthchan.command()
+async def unload(cxt, extension):
+    earthchan.unload_extension(f'categories.{extension}')
+
+for filename in os.listdir('./categories'):
+    if filename.endswith('.py'):
+        earthchan.load_extension(f'categories.{filename[:-3]}')
 
 @earthchan.command()
 async def hello(cxt):
