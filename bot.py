@@ -1,5 +1,4 @@
 import discord
-import random
 import os
 from discord.ext import commands
 
@@ -33,61 +32,11 @@ for filename in os.listdir('./categories'):
     if filename.endswith('.py'):
         earthchan.load_extension(f'categories.{filename[:-3]}')
 
-@earthchan.command(aliases = ['askme', 'question'])
-async def ask(cxt, question):
-    response = [
-    'Yes :)',
-    'No :|',
-    'Of *course* :grin:',
-    'Definitely :smile:',
-    '__Highly Probable__ :grinning:',
-    '*No chance* :unamused:',
-    '**Don\'t keep your hopes high** :pensive:',
-    'Never gonna happen!',
-    'That\'s not possible! :laughing:', 
-    'I dunno ¯\\_(ツ)_/¯',
-    'Ask later :sleeping:'
-    ]
-    await cxt.send(random.choice(response))
-
-@earthchan.command()
-async def compliment(cxt, member : discord.Member):
-    comps = [
-        f'Hey, {member}, you are awesome!',
-        f'You got nice lookin\' hair there, {member}.',
-        f'{member}, you made my day!',
-        f'Man, {member} has such a big brain!',
-        f'You\'re probably the most wholesome person i met, {member}.',
-        f'Thank you for existing, {member}.',
-        f'The only thing that would make you any worse is if you weren\'t you, {member}',
-        f'If there was a perfect person in this world, it just might be {member}'
-    ]
-    await cxt.send(random.choice(comps))
-
-@earthchan.command(aliases = ['nickname'])
-@commands.has_permissions(manage_nicknames=True)
-async def nick(cxt, member : discord.Member, nick=None):
-    await member.edit(nick=nick)
-    await cxt.send(f':white_check_mark: **Ok, {member} now has the nickname {nick}!** :pencil2:')
-
-@earthchan.command(aliases = ['stats'])
-async def ping(cxt):
-    steat = discord.Embed(
-        title = ':ping_pong: **Pong!**',
-        description = f'{round(earthchan.latency*1000)}ms',
-        colour = discord.Colour.purple()
-    )
-    await cxt.send(embed=steat)
-
-@earthchan.command()
-async def invite(cxt):
-    await cxt.author.send(f'{cxt.author.mention} **Here is the link for the EarthChan Testing server!** https://discord.gg/dAm265y')
-
 @earthchan.command()
 async def help(cxt):
     help = discord.Embed(
         title = ':arrow_forward: **Commands**',
-        description = '(WIP) _Categories: Miscellaneous, Moderation,None._ A list of commands (So Far) for the EarthChan bot.',
+        description = '(WIP) _Categories: Miscellaneous, Moderation, Fun, Stats and Data, None._ A list of commands (So Far) for the EarthChan bot.',
         colour = discord.Colour.dark_green()
     )    
     help.set_footer(text='Join the EarthChan Beta Testers discord server by sending a dm to SwagAsh#3759')
